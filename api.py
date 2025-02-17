@@ -1,6 +1,5 @@
 import sys
 
-import PyQt6.QtWidgets.QMainWindow
 from PyQt6 import uic
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QPixmap, QImage
@@ -16,7 +15,6 @@ class MainWindow(QMainWindow):
         super().__init__()
         uic.loadUi('Ui.ui', self)
         self.press_delta = 0.005
-
         self.map_zoom = 10
         self.map_ll = [37.615, 55.752]
         self.map_l = 'map'
@@ -32,7 +30,7 @@ class MainWindow(QMainWindow):
         pixmap.loadFromData(respons.content)
         self.g_map.setPixmap(QPixmap.fromImage(pixmap))
 
-    def KeyPressEvent(self, event):
+    def keyPressEvent(self, event):
         if event.key() == Qt.Key.Key_PageUp and self.map_zoom < 17:
             self.map_zoom += 1
         if event.key() == Qt.Key.Key_PageDown and self.map_zoom > 0:
