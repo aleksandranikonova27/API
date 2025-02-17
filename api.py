@@ -1,7 +1,11 @@
 import sys
+
+import PyQt6.QtWidgets.QMainWindow
 from PyQt6 import uic
+from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QPixmap, QImage
 from PyQt6.QtWidgets import QApplication, QMainWindow, QLabel
+
 import requests
 
 
@@ -27,6 +31,13 @@ class MainWindow(QMainWindow):
         pixmap = QImage()
         pixmap.loadFromData(respons.content)
         self.g_map.setPixmap(QPixmap.fromImage(pixmap))
+
+    def KeyPressEvent(self, event):
+        if event.key() == Qt.Key.Key_PageUp and self.map_zoom < 17:
+            self.map_zoom += 1
+        if event.key() == Qt.Key.Key_PageDown and self.map_zoom > 0:
+            self.map_zoom -= 1
+        self.refresh_map()
 
 
 def except_hook(cls, exception, traceback):
